@@ -64,9 +64,10 @@ na lista $Astros$ sobre a nave no ponto $P = [x, y]$.
 
 def deteccaoColisao(nave, astros):
     """
-    Verifica se ocorre sobreposição entre a nave fornecida com algum dos astros
-    presentes na lista $Astros$. Devolve \textbf{True} se a nave colidiu com algum astro,
-    caso contrário a função retorna  \textbf{False}.
+Verifica se ocorre sobreposição entre a nave fornecida com algum dos astros
+presentes na lista $Astros$. Devolve \textbf{True} se a nave colidiu com algum astro,
+caso contrário a função retorna  \textbf{False}.
+
     :param nave: Nave
     :param astros: [Astro]
     :return: bool
