@@ -1,0 +1,4 @@
+Número máximo de iterações:Delta t:Número de naves:*** Nave 1 ***
+Digite a posição (x,y):Digite a velocidade inicial (vx,vy):Digite o raio:*** Nave 2 ***
+Digite a posição (x,y):Digite a velocidade inicial (vx,vy):Digite o raio:*** Nave 3 ***
+Digite a posição (x,y):Digite a velocidade inicial (vx,vy):Digite o raio:Número de astros:Digite a posição (x,y):Digite a massa:Digite o raio:

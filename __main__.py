@@ -16,6 +16,12 @@ class Nave:
         self.radius = r
         self.id = i
 
+    def __repr__(self):
+        return f'Nave[{self.id}](position={self.pos}, velocity={self.vel}, radius={self.radius})'
+
+    def __str__(self):
+        return self.__repr__()
+
 
 class Astro:
     def __init__(self, x, y, m, r, i):
@@ -23,6 +29,12 @@ class Astro:
         self.mass = m
         self.radius = r
         self.id = i
+
+    def __repr__(self):
+        return f'Astro[{self.id}](position={self.pos}, mass={self.mass}, radius={self.radius})'
+
+    def __str__(self):
+        return self.__repr__()
 
 
 def distancia(p1, p2):
@@ -72,7 +84,7 @@ def deteccaoColisao(nave, astros):
     """
 Verifica se ocorre sobreposição entre a nave fornecida com algum dos astros
 presentes na lista $Astros$. Devolve \textbf{True} se a nave colidiu com algum astro,
-caso contrário a função retorna  \textbf{False}.
+caso contrário a função retorna \textbf{False}.
 
     :param nave: Nave
     :param astros: [Astro]
@@ -109,7 +121,7 @@ após um intervalo de tempo $delta_t$ (Δt).
 def distanciaAstroMaisProximo(nave, astros):
     """
 Calcula a distância da nave $Nave$ em relação ao astro mais próximo
-dentre os astros presentes na lista $Astros$. A distância deve ser medida em relação a
+dentre os astros presentes na lista $Astros$. A distância deve ser medida em relação à
 superfície do astro e da nave. Em caso de nave colidida, a disntância deve ser zero.
 
     :param nave: Nave
@@ -143,8 +155,7 @@ simulação. Uma nave será desativada assim que colodir com algum astro. Neste 
 a nave conserva a posição em que ocorreu a colisão ao longo das próximas iterações.
 Não serão consideradas colisões entre naves. A simulação termina quando o número de
 iterações executadas atingir $niter$.
-Esta função DEVE usar as funções ’atualizaNave’, ’deteccaoColisao’
-e ’distanciaAstroMaisProximo'.
+Esta função DEVE usar as funções "atualizaNave", "deteccaoColisao" e "distanciaAstroMaisProximo".
 
     :param naves: [Nave]
     :param astros: [Astro]
@@ -152,7 +163,12 @@ e ’distanciaAstroMaisProximo'.
     :param delta_t: float
     :return: [[float]], [[float]]
     """
-    T, D = [[]]*len(naves), [[]]*len(naves)
+    T = [[[]]]
+    D = [[float()]]
+
+    for nave in naves:
+        T[nave.id].append(nave.pos)
+        D[nave.id].append(distanciaAstroMaisProximo(nave, astros))
 
     eprint('0-T:', T)
     eprint('0-D:', D)
@@ -163,11 +179,13 @@ e ’distanciaAstroMaisProximo'.
             if deteccaoColisao(nave, astros):
                 nave = atualizaNave(nave, astros, delta_t)
 
-            T[nave.id].append(nave.pos)
-            D[nave.id].append(distanciaAstroMaisProximo(nave, astros))
+            p = nave.pos
+            mn_d = distanciaAstroMaisProximo(nave, astros)
+            T[nave.id].append(p)
+            D[nave.id].append(mn_d)
 
             print('*** Nave {} ***'.format(nave.id + 1))
-            print('Posição: ({}, {})'.format(nave.pos[0], nave.pos[1]))
+            print('Posição: ({}, {})'.format(T[nave.id][0], T[nave.id][1]))
             print('Distância ao astro mais próximo: {}'.format(D[nave.id][-1]))
 
             eprint('{}-T:'.format(i + 1), T)
@@ -175,6 +193,7 @@ e ’distanciaAstroMaisProximo'.
 
     eprint("n-T:", T)
     eprint("n-D:", D)
+
     return T, D
 
 
@@ -183,8 +202,8 @@ def main():
     niter = int(input('Número máximo de iterações:'))
     delta_t = float(input('Delta t:'))
 
-    Naves = []
-    Astros = []
+    naves = []
+    astros = []
 
     sz_naves = int(input('Número de naves:'))
     for i in range(sz_naves):
@@ -195,7 +214,7 @@ def main():
         vy = float(input())
         r = float(input('Digite o raio:'))
 
-        Naves.append(Nave(x, y, vx, vy, r, i))
+        naves.append(Nave(x, y, vx, vy, r, i))
 
     sz_astros = int(input('Número de astros:'))
     for i in range(sz_astros):
@@ -204,26 +223,31 @@ def main():
         m = float(input('Digite a massa:'))
         r = float(input('Digite o raio:'))
 
-        Astros.append(Astro(x, y, m, r, i))
+        astros.append(Astro(x, y, m, r, i))
 
-    """
+    '''
     print(Naves)
     for i in range(sz_naves):
        print(Naves[i].pos, Naves[i].vel, Naves[i].radius, Naves[i].id)
     print(Astros)
     for i in range(sz_astros):
         print(Astros[i].pos, Astros[i].mass, Astros[i].radius, Astros[i].id)
-    """
-    print("type of Naves:", type(Naves))
-    for nave in Naves:
+    '''
+    '''
+    print("type of naves:", type(Naves))
+    for nave in naves:
         print(type(nave), end=' ')
     print(end='\n')
-    print("type of Astros:", type(Astros))
-    for astro in Astros:
+    print("type of astros:", type(Astros))
+    for astro in astros:
         print(type(astro), end=' ')
     print(end='\n')
+    '''
+    eprint(naves)
+    eprint(astros)
 
-    simulacao(Naves, Astros, niter, delta_t)
+    simulacao(naves, astros, niter, delta_t)
 
 
-main()
+if __name__ == '__main__':
+    main()

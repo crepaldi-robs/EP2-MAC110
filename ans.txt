@@ -1,0 +1,125 @@
+Número máximo de iterações:Delta t:Número de naves:*** Nave 1 ***
+Digite a posição (x,y):Digite a velocidade inicial (vx,vy):Digite o raio:*** Nave 2 ***
+Digite a posição (x,y):Digite a velocidade inicial (vx,vy):Digite o raio:*** Nave 3 ***
+Digite a posição (x,y):Digite a velocidade inicial (vx,vy):Digite o raio:Número de astros:Digite a posição (x,y):Digite a massa:Digite o raio:********* iteração 1 *********
+*** Nave 1 ***
+Posição: (144902.561,154902.561)
+Distância ao astro mais próximo: 172112.130
+*** Nave 2 ***
+Posição: (-144909.660,-154896.754)
+Distância ao astro mais próximo: 162112.739
+*** Nave 3 ***
+Posição: (-46623.051,-46623.051)
+Distância ao astro mais próximo: 30934.950
+********* iteração 2 *********
+*** Nave 1 ***
+Posição: (139613.529,159607.032)
+Distância ao astro mais próximo: 172052.687
+*** Nave 2 ***
+Posição: (-149634.822,-149589.616)
+Distância ao astro mais próximo: 161583.632
+*** Nave 3 ***
+Posição: (-41360.565,-41360.565)
+6
+Distância ao astro mais próximo: 23492.672
+********* iteração 3 *********
+*** Nave 1 ***
+Posição: (134139.550,164107.055)
+Distância ao astro mais próximo: 171954.109
+*** Nave 2 ***
+Posição: (-154167.867,-144083.900)
+Distância ao astro mais próximo: 161016.354
+*** Nave 3 ***
+Posição: (-33807.925,-33807.925)
+Distância ao astro mais próximo: 12811.627
+********* iteração 4 *********
+*** Nave 1 ***
+Posição: (128487.421,168396.410)
+Distância ao astro mais próximo: 171816.827
+*** Nave 2 ***
+Posição: (-158501.210,-138385.167)
+Distância ao astro mais próximo: 160411.710
+*** Nave 3 ***
+Posição: (-23055.590,-23055.590)
+Distância ao astro mais próximo: 0.000
+********* iteração 5 *********
+*** Nave 1 ***
+Posição: (122664.099,172469.016)
+Distância ao astro mais próximo: 171641.307
+*** Nave 2 ***
+Posição: (-162627.302,-132499.228)
+Distância ao astro mais próximo: 159770.553
+*** Nave 3 ***
+Posição: (-23055.590,-23055.590)
+Distância ao astro mais próximo: 0.000
+********* iteração 6 *********
+*** Nave 1 ***
+Posição: (116676.702,176318.929)
+Distância ao astro mais próximo: 171428.043
+*** Nave 2 ***
+Posição: (-166538.637,-126432.163)
+Distância ao astro mais próximo: 159093.781
+*** Nave 3 ***
+Posição: (-23055.590,-23055.590)
+Distância ao astro mais próximo: 0.000
+********* iteração 7 *********
+*** Nave 1 ***
+Posição: (110532.516,179940.342)
+Distância ao astro mais próximo: 171177.565
+*** Nave 2 ***
+Posição: (-170227.756,-120190.325)
+Distância ao astro mais próximo: 158382.348
+7
+*** Nave 3 ***
+Posição: (-23055.590,-23055.590)
+Distância ao astro mais próximo: 0.000
+********* iteração 8 *********
+*** Nave 1 ***
+Posição: (104239.000,183327.592)
+Distância ao astro mais próximo: 170890.434
+*** Nave 2 ***
+Posição: (-173687.252,-113780.360)
+Distância ao astro mais próximo: 157637.260
+*** Nave 3 ***
+Posição: (-23055.590,-23055.590)
+Distância ao astro mais próximo: 0.000
+********* iteração 9 *********
+*** Nave 1 ***
+Posição: (97803.788,186475.159)
+Distância ao astro mais próximo: 170567.248
+*** Nave 2 ***
+Posição: (-176909.779,-107209.214)
+Distância ao astro mais próximo: 156859.579
+*** Nave 3 ***
+Posição: (-23055.590,-23055.590)
+Distância ao astro mais próximo: 0.000
+********* iteração 10 *********
+*** Nave 1 ***
+Posição: (91234.701,189377.668)
+Distância ao astro mais próximo: 170208.639
+*** Nave 2 ***
+Posição: (-179888.061,-100484.148)
+Distância ao astro mais próximo: 156050.428
+*** Nave 3 ***
+Posição: (-23055.590,-23055.590)
+Distância ao astro mais próximo: 0.000
+********* iteração 11 *********
+*** Nave 1 ***
+Posição: (84539.747,192029.897)
+Distância ao astro mais próximo: 169815.277
+*** Nave 2 ***
+Posição: (-182614.902,-93612.753)
+Distância ao astro mais próximo: 155210.989
+*** Nave 3 ***
+Posição: (-23055.590,-23055.590)
+Distância ao astro mais próximo: 0.000
+********* iteração 12 *********
+*** Nave 1 ***
+Posição: (77727.131,194426.782)
+Distância ao astro mais próximo: 169387.871
+*** Nave 2 ***
+Posição: (-185083.197,-86602.959)
+Distância ao astro mais próximo: 154342.512
+*** Nave 3 ***
+Posição: (-23055.590,-23055.590)
+Distância ao astro mais próximo: 0.000
