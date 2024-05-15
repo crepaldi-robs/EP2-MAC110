@@ -184,6 +184,14 @@ Esta função DEVE usar as funções "atualizaNave", "deteccaoColisao" e "distan
     :param delta_t: float
     :return: [[float]], [[float]]
     """
+    aux_id = 0
+    for nave in naves:
+        nave.append(aux_id)
+        aux_id += 1
+    aux_id = 0
+    for astro in astros:
+        astro.append(aux_id)
+        aux_id += 1
 
     T = [[-1] * niter] * len(naves)
     D = [[-1] * niter] * len(naves)
@@ -210,55 +218,41 @@ Esta função DEVE usar as funções "atualizaNave", "deteccaoColisao" e "distan
 
 
 # main
+#Não altere o código abaixo:
 def main():
-    niter = int(input('Número máximo de iterações:'))
-    delta_t = float(input('Delta t:'))
+    niter = int(input("Número máximo de iterações: "))
+    delta_t = float(input("Delta t: "))
+    nnaves = int(input("Número de naves: "))
+    Naves = []
+    for i in range(nnaves):
+        print("*** Nave %d ***"%(i+1))
+        x,y = input("Digite a posição (x,y): ").split()
+        x,y = float(x),float(y)
+        vx,vy = input("Digite a velocidade inicial (vx,vy): ").split()
+        vx,vy = float(vx),float(vy)
+        r = float(input("Digite o raio: "))
+        Naves.append([[x,y], [vx,vy], r])
 
-    naves = []
-    astros = []
+    nastros = int(input("Número de astros: "))
+    Astros = []
+    for i in range(nastros):
+        print("*** Astro %d ***"%(i+1))
+        x,y = input("Digite a posição (x,y): ").split()
+        x,y = float(x),float(y)
+        massa = float(input("Digite a massa: "))
+        R = float(input("Digite o raio: "))
+        Astros.append([[x,y], massa, R])
 
-    sz_naves = int(input('Número de naves: '))
-    for i in range(sz_naves):
-        print('*** Nave', i + 1, '***')
-        x = float(input('Digite a posição (x,y): '))
-        y = float(input())
-        vx = float(input('Digite a velocidade inicial (vx,vy): '))
-        vy = float(input())
-        r = float(input('Digite o raio: '))
-
-        naves.append(initNave(x, y, vx, vy, r, i))
-
-    sz_astros = int(input('Número de astros: '))
-    for i in range(sz_astros):
-        x = float(input('Digite a posição (x,y): '))
-        y = float(input())
-        m = float(input('Digite a massa: '))
-        r = float(input('Digite o raio: '))
-
-        astros.append(initAstro(x, y, m, r, i))
-
-    '''
-    print(Naves)
-    for i in range(sz_naves):
-       print(Naves[i].pos, Naves[i].vel, Naves[i].radius, Naves[i].id)
-    print(Astros)
-    for i in range(sz_astros):
-        print(Astros[i].pos, Astros[i].mass, Astros[i].radius, Astros[i].id)
-    '''
-    '''
-    print("type of naves:", type(Naves))
-    for nave in naves:
-        print(type(nave), end=' ')
-    print(end='\n')
-    print("type of astros:", type(Astros))
-    for astro in astros:
-        print(type(astro), end=' ')
-    print(end='\n')
-    '''
-    # eprint(naves)
-    # eprint(astros)
-
-    simulacao(naves, astros, niter, delta_t)
+    T, D = simulacao(Naves, Astros, niter, delta_t)
+    for i in range(niter):
+        print("********* iteração %d *********"%(i+1))
+        for j in range(nnaves):
+            print("*** Nave %d ***"%(j+1))
+            print("Posição: ",end="")
+            P = T[j][i]
+            print("(%.3f,%.3f)"%(P[0],P[1]))
+            print("Distância ao astro mais próximo: ",end="")
+            print("%.3f"%(D[j][i]))
 
 
 if __name__ == '__main__':
