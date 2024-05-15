@@ -156,49 +156,27 @@ Esta função DEVE usar as funções "atualizaNave", "deteccaoColisao" e "distan
     :param delta_t: float
     :return: [[float]], [[float]]
     """
-    T = [[]]
-    D = [[]]
 
-    for i in range(niter):
-        auxT, auxD = [], []
-        for nave in naves:
-            auxT.append(nave[0])
-            auxD.append(distanciaAstroMaisProximo(nave, astros))
-        T.append(auxT)
-        D.append(auxD)
-
-    '''
-    for nave in naves:
-        T[nave.id].append(nave.pos)
-        D[nave.id].append(distanciaAstroMaisProximo(nave, astros))
-
-    eprint('0-T:', T)
-    eprint('0-D:', D)
-    '''
+    T = [[-1] * niter] * len(naves)
+    D = [[-1] * niter] * len(naves)
 
     for i in range(niter):
         print('********* iteração {} *********'.format(i + 1))
-        auxT, auxD = [], []
         for nave in naves:
             if not deteccaoColisao(nave, astros):
                 nave = atualizaNave(nave, astros, delta_t)
 
             p = nave[0]
             mn_d = distanciaAstroMaisProximo(nave, astros)
-            auxT.append(p)
-            auxD.append(mn_d)
+            T[nave[3]][i] = p
+            D[nave[3]][i] = mn_d
 
             print('*** Nave {} ***'.format(nave[3] + 1))
             print('Posição: ({:.3f},{:.3f})'.format(p[0], p[1]))
             print('Distância ao astro mais próximo: {:.3f}'.format(mn_d))
 
-            # eprint('{}-T:'.format(i + 1), T)
-            # eprint('{}-D:'.format(i + 1), D)
-        T.append(auxT)
-        D.append(auxD)
-
-    # eprint("n-T:", T)
-    # eprint("n-D:", D)
+    # eprint(f'T: {T}', end='\n')
+    # eprint(f'D: {D}', end='\n')
 
     return T, D
 
