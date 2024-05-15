@@ -1,7 +1,7 @@
-Número máximo de iterações:Delta t:Número de naves:*** Nave 1 ***
-Digite a posição (x,y):Digite a velocidade inicial (vx,vy):Digite o raio:*** Nave 2 ***
-Digite a posição (x,y):Digite a velocidade inicial (vx,vy):Digite o raio:*** Nave 3 ***
-Digite a posição (x,y):Digite a velocidade inicial (vx,vy):Digite o raio:Número de astros:Digite a posição (x,y):Digite a massa:Digite o raio:********* iteração 1 *********
+Número máximo de iterações:Delta t:Número de naves: *** Nave 1 ***
+Digite a posição (x,y): Digite a velocidade inicial (vx,vy): Digite o raio: *** Nave 2 ***
+Digite a posição (x,y): Digite a velocidade inicial (vx,vy): Digite o raio: *** Nave 3 ***
+Digite a posição (x,y): Digite a velocidade inicial (vx,vy): Digite o raio: Número de astros: Digite a posição (x,y): Digite a massa: Digite o raio: ********* iteração 1 *********
 *** Nave 1 ***
 Posição: (144902.561,154902.561)
 Distância ao astro mais próximo: 172112.130
@@ -20,7 +20,6 @@ Posição: (-149634.822,-149589.616)
 Distância ao astro mais próximo: 161583.632
 *** Nave 3 ***
 Posição: (-41360.565,-41360.565)
-6
 Distância ao astro mais próximo: 23492.672
 ********* iteração 3 *********
 *** Nave 1 ***
@@ -69,7 +68,6 @@ Distância ao astro mais próximo: 171177.565
 *** Nave 2 ***
 Posição: (-170227.756,-120190.325)
 Distância ao astro mais próximo: 158382.348
-7
 *** Nave 3 ***
 Posição: (-23055.590,-23055.590)
 Distância ao astro mais próximo: 0.000

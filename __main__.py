@@ -1,40 +1,21 @@
 import math
-import sys
+# import sys
 
-
+'''
 def eprint(*args, **kwargs):
     print(*args, file=sys.stderr, **kwargs)
+'''
 
 
-_const_G = 8.65 * 1e-13
+_const_G = 8.65 * (10 ** -13)
 
 
-class Nave:
-    def __init__(self, x, y, vx, vy, r, i):
-        self.pos = [x, y]
-        self.vel = [vx, vy]
-        self.radius = r
-        self.id = i
-
-    def __repr__(self):
-        return f'Nave[{self.id}](position={self.pos}, velocity={self.vel}, radius={self.radius})'
-
-    def __str__(self):
-        return self.__repr__()
+def initNave(x, y, v_x, v_y, r, id):
+    return [[x, y], [v_x, v_y], r, id]
 
 
-class Astro:
-    def __init__(self, x, y, m, r, i):
-        self.pos = [x, y]
-        self.mass = m
-        self.radius = r
-        self.id = i
-
-    def __repr__(self):
-        return f'Astro[{self.id}](position={self.pos}, mass={self.mass}, radius={self.radius})'
-
-    def __str__(self):
-        return self.__repr__()
+def initAstro(x, y, m, r, id):
+    return [[x, y], m, r, id]
 
 
 def distancia(p1, p2):
@@ -57,11 +38,11 @@ exercida sobre a nave no ponto $P = [x, y]$ pelo astro $Astro$.
     :param p: [float, float]
     :return: [float, float]
     """
-    acceleration = (_const_G * astro.mass) / (distancia(p, astro.pos) ** 2)
-    d_x = abs(p[0] - astro.pos[0])
-    d_y = abs(p[1] - astro.pos[1])
-    r = distancia(astro.pos, p)
-    return [acceleration * d_x / r, acceleration * d_y / r]
+    acceleration = (_const_G * astro[1]) / (distancia(p, astro[0]) ** 2)
+    d_x = p[0] - astro[0][0]
+    d_y = p[1] - astro[0][1]
+    r = distancia(astro[0], p)
+    return [-acceleration * d_x / r, -acceleration * d_y / r]
 
 
 def aceleracaoResultante(astros, p):
@@ -76,7 +57,8 @@ na lista $Astros$ sobre a nave no ponto $P = [x, y]$.
     """
     acceleration = [0, 0]
     for astro in astros:
-        acceleration += aceleracaoGravitacional(astro, p)
+        acceleration[0] += aceleracaoGravitacional(astro, p)[0]
+        acceleration[1] += aceleracaoGravitacional(astro, p)[1]
     return acceleration
 
 
@@ -91,9 +73,9 @@ caso contrário a função retorna \textbf{False}.
     :return: bool
     """
     for astro in astros:
-        if distancia(nave.pos, astro.pos) < nave.radius:
-            return False
-    return True
+        if distancia(nave[0], astro[0]) <= nave[2] + astro[2]:
+            return True
+    return False
 
 
 def atualizaNave(nave, astros, delta_t):
@@ -107,15 +89,19 @@ após um intervalo de tempo $delta_t$ (Δt).
     :param delta_t: float
     :return: Nave
     """
-    acceleration = aceleracaoResultante(astros, nave.pos)
+    acceleration = aceleracaoResultante(astros, nave[0])
 
-    nave.pos[0] = nave.pos[0] + nave.vel[0] * delta_t + acceleration[0] * (delta_t ** 2 / 2)
-    nave.pos[1] = nave.pos[1] + nave.vel[1] * delta_t + acceleration[1] * (delta_t ** 2 / 2)
+    # eprint(f'pre-Nave({nave.id}): {nave.pos}, {nave.vel} | a = {acceleration}', end='\n')
 
-    nave.vel[0] = nave.vel[0] + acceleration[0] * delta_t
-    nave.vel[1] = nave.vel[1] + acceleration[1] * delta_t
+    nave[0][0] += nave[1][0] * delta_t + acceleration[0] * (delta_t ** 2 / 2)
+    nave[0][1] += nave[1][1] * delta_t + acceleration[1] * (delta_t ** 2 / 2)
 
-    return Nave(nave.pos[0], nave.pos[0], nave.vel[0], nave.vel[1], nave.radius, nave.id)
+    nave[1][0] += acceleration[0] * delta_t
+    nave[1][1] += acceleration[1] * delta_t
+
+    # eprint(f'pos-Nave({nave.id}): {nave.pos}, {nave.vel} | a = {acceleration}', end='\n')
+
+    return initNave(nave[0][0], nave[0][1], nave[1][0], nave[1][1], nave[2], nave[3])
 
 
 def distanciaAstroMaisProximo(nave, astros):
@@ -128,10 +114,17 @@ superfície do astro e da nave. Em caso de nave colidida, a disntância deve ser
     :param astros: [Astro]
     :return: float
     """
-    mn_dist = distancia(nave.pos, astros[0].pos)
+    mn_dist = distancia(nave[0], astros[0][0])
+    aux = []
     for astro in astros:
-        if distancia(nave.pos, astro.pos) < mn_dist:
-            mn_dist = distancia(nave.pos, astro.pos)
+        dist = distancia(nave[0], astro[0]) - (nave[2] + astro[2])
+        # print(f'dist = distancia({nave[0]}, {astro[0]}) - ({nave[2]} + {astro[2]}) = {distancia(nave[0], astro[0])} - {nave[2] + astro[2]} = {dist}')
+        if deteccaoColisao(nave, astros):
+            dist = 0
+        aux.append(dist)
+        if dist < mn_dist:
+            mn_dist = dist
+    # print(aux)
     return mn_dist
 
 
@@ -166,11 +159,11 @@ Esta função DEVE usar as funções "atualizaNave", "deteccaoColisao" e "distan
     T = [[]]
     D = [[]]
 
-    for i in range(len(naves)):
+    for i in range(niter):
         auxT, auxD = [], []
-        for j in range(niter):
-            auxT.append(naves[i].pos)
-            auxD.append(distanciaAstroMaisProximo(naves[i], astros))
+        for nave in naves:
+            auxT.append(nave[0])
+            auxD.append(distanciaAstroMaisProximo(nave, astros))
         T.append(auxT)
         D.append(auxD)
 
@@ -187,25 +180,25 @@ Esta função DEVE usar as funções "atualizaNave", "deteccaoColisao" e "distan
         print('********* iteração {} *********'.format(i + 1))
         auxT, auxD = [], []
         for nave in naves:
-            if deteccaoColisao(nave, astros):
+            if not deteccaoColisao(nave, astros):
                 nave = atualizaNave(nave, astros, delta_t)
 
-            p = nave.pos
+            p = nave[0]
             mn_d = distanciaAstroMaisProximo(nave, astros)
             auxT.append(p)
             auxD.append(mn_d)
 
-            print('*** Nave {} ***'.format(nave.id + 1))
-            print('Posição: ({},{})'.format(p[0], p[1]))
-            print('Distância ao astro mais próximo: {}'.format(mn_d))
+            print('*** Nave {} ***'.format(nave[3] + 1))
+            print('Posição: ({:.3f},{:.3f})'.format(p[0], p[1]))
+            print('Distância ao astro mais próximo: {:.3f}'.format(mn_d))
 
-            eprint('{}-T:'.format(i + 1), T)
-            eprint('{}-D:'.format(i + 1), D)
+            # eprint('{}-T:'.format(i + 1), T)
+            # eprint('{}-D:'.format(i + 1), D)
         T.append(auxT)
         D.append(auxD)
 
-    eprint("n-T:", T)
-    eprint("n-D:", D)
+    # eprint("n-T:", T)
+    # eprint("n-D:", D)
 
     return T, D
 
@@ -218,25 +211,25 @@ def main():
     naves = []
     astros = []
 
-    sz_naves = int(input('Número de naves:'))
+    sz_naves = int(input('Número de naves: '))
     for i in range(sz_naves):
         print('*** Nave', i + 1, '***')
-        x = float(input('Digite a posição (x,y):'))
+        x = float(input('Digite a posição (x,y): '))
         y = float(input())
-        vx = float(input('Digite a velocidade inicial (vx,vy):'))
+        vx = float(input('Digite a velocidade inicial (vx,vy): '))
         vy = float(input())
-        r = float(input('Digite o raio:'))
+        r = float(input('Digite o raio: '))
 
-        naves.append(Nave(x, y, vx, vy, r, i))
+        naves.append(initNave(x, y, vx, vy, r, i))
 
-    sz_astros = int(input('Número de astros:'))
+    sz_astros = int(input('Número de astros: '))
     for i in range(sz_astros):
-        x = float(input('Digite a posição (x,y):'))
+        x = float(input('Digite a posição (x,y): '))
         y = float(input())
-        m = float(input('Digite a massa:'))
-        r = float(input('Digite o raio:'))
+        m = float(input('Digite a massa: '))
+        r = float(input('Digite o raio: '))
 
-        astros.append(Astro(x, y, m, r, i))
+        astros.append(initAstro(x, y, m, r, i))
 
     '''
     print(Naves)
@@ -256,8 +249,8 @@ def main():
         print(type(astro), end=' ')
     print(end='\n')
     '''
-    eprint(naves)
-    eprint(astros)
+    # eprint(naves)
+    # eprint(astros)
 
     simulacao(naves, astros, niter, delta_t)
 

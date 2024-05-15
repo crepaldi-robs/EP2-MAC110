@@ -1,0 +1,13 @@
+Número máximo de iterações:Delta t:Número de naves:*** Nave 1 ***
+Digite a posição (x,y):Digite a velocidade inicial (vx,vy):Digite o raio:Número de astros:Digite a posição (x,y):Digite a massa:Digite o raio:********* iteração 1 *********
+*** Nave 1 ***
+Posição: (876949510.6101741,876949510.6101741)
+Distância ao astro mais próximo: 1240193891.4213564
+********* iteração 2 *********
+*** Nave 1 ***
+Posição: (2630848331.8305335,2630848331.8305335)
+Distância ao astro mais próximo: 3720581391.4213734
+********* iteração 3 *********
+*** Nave 1 ***
+Posição: (4384747153.050905,4384747153.050905)
+Distância ao astro mais próximo: 6200968891.421407
