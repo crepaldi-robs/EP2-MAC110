@@ -1,7 +1,8 @@
-Número máximo de iterações:Delta t:Número de naves: *** Nave 1 ***
+Número máximo de iterações: Delta t: Número de naves: *** Nave 1 ***
 Digite a posição (x,y): Digite a velocidade inicial (vx,vy): Digite o raio: *** Nave 2 ***
 Digite a posição (x,y): Digite a velocidade inicial (vx,vy): Digite o raio: *** Nave 3 ***
-Digite a posição (x,y): Digite a velocidade inicial (vx,vy): Digite o raio: Número de astros: Digite a posição (x,y): Digite a massa: Digite o raio: ********* iteração 1 *********
+Digite a posição (x,y): Digite a velocidade inicial (vx,vy): Digite o raio: Número de astros: *** Astro 1 ***
+Digite a posição (x,y): Digite a massa: Digite o raio: ********* iteração 1 *********
 *** Nave 1 ***
 Posição: (144902.561,154902.561)
 Distância ao astro mais próximo: 172112.130

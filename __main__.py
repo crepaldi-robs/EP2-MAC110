@@ -38,12 +38,12 @@ def eprint(*args, **kwargs):
 _const_G = 8.65 * (10 ** -13)
 
 
-def initNave(x, y, v_x, v_y, r, id):
-    return [[x, y], [v_x, v_y], r, id]
+def initNave(x, y, v_x, v_y, r):
+    return [[x, y], [v_x, v_y], r]
 
 
-def initAstro(x, y, m, r, id):
-    return [[x, y], m, r, id]
+def initAstro(x, y, m, r):
+    return [[x, y], m, r]
 
 
 def distancia(p1, p2):
@@ -129,7 +129,7 @@ após um intervalo de tempo $delta_t$ (Δt).
 
     # eprint(f'pos-Nave({nave.id}): {nave.pos}, {nave.vel} | a = {acceleration}', end='\n')
 
-    return initNave(nave[0][0], nave[0][1], nave[1][0], nave[1][1], nave[2], nave[3])
+    return initNave(nave[0][0], nave[0][1], nave[1][0], nave[1][1], nave[2])
 
 
 def distanciaAstroMaisProximo(nave, astros):
@@ -198,16 +198,16 @@ Esta função DEVE usar as funções "atualizaNave", "deteccaoColisao" e "distan
 
     for i in range(niter):
         print('********* iteração {} *********'.format(i + 1))
-        for nave in naves:
-            if not deteccaoColisao(nave, astros):
-                nave = atualizaNave(nave, astros, delta_t)
+        for j in range(len(naves)):
+            if not deteccaoColisao(naves[j], astros):
+                naves[j] = atualizaNave(naves[j], astros, delta_t)
 
-            p = nave[0]
-            mn_d = distanciaAstroMaisProximo(nave, astros)
-            T[nave[3]][i] = p
-            D[nave[3]][i] = mn_d
+            p = naves[j][0]
+            mn_d = distanciaAstroMaisProximo(naves[j], astros)
+            T[j][i] = p
+            D[j][i] = mn_d
 
-            print('*** Nave {} ***'.format(nave[3] + 1))
+            print('*** Nave {} ***'.format(j + 1))
             print('Posição: ({:.3f},{:.3f})'.format(p[0], p[1]))
             print('Distância ao astro mais próximo: {:.3f}'.format(mn_d))
 
