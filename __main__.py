@@ -146,7 +146,8 @@ superfície do astro e da nave. Em caso de nave colidida, a disntância deve ser
     aux = []
     for astro in astros:
         dist = distancia(nave[0], astro[0]) - (nave[2] + astro[2])
-        # print(f'dist = distancia({nave[0]}, {astro[0]}) - ({nave[2]} + {astro[2]}) = {distancia(nave[0], astro[0])} - {nave[2] + astro[2]} = {dist}')
+        # print(f'dist = distancia({nave[0]}, {astro[0]}) - ({nave[2]} + {astro[2]}) = {distancia(nave[0], astro[0])}
+        # - {nave[2] + astro[2]} = {dist}')
         if deteccaoColisao(nave, astros):
             dist = 0
         aux.append(dist)
@@ -182,34 +183,29 @@ Esta função DEVE usar as funções "atualizaNave", "deteccaoColisao" e "distan
     :param astros: [Astro]
     :param niter: int
     :param delta_t: float
-    :return: [[float]], [[float]]
+    :return: [[[float, float]], [[float]]
     """
-    aux_id = 0
+    T, D = [], []
+
     for nave in naves:
-        nave.append(aux_id)
-        aux_id += 1
-    aux_id = 0
-    for astro in astros:
-        astro.append(aux_id)
-        aux_id += 1
+        # print('********* iteração {} *********'.format(i + 1))
+        aux_T, aux_D = [], []
+        for i in range(niter):
+            if not deteccaoColisao(nave, astros):
+                atualizaNave(nave, astros, delta_t)
 
-    T = [[-1] * niter] * len(naves)
-    D = [[-1] * niter] * len(naves)
+                p = nave[0][:]
+                mn_d = distanciaAstroMaisProximo(nave, astros)
 
-    for i in range(niter):
-        print('********* iteração {} *********'.format(i + 1))
-        for j in range(len(naves)):
-            if not deteccaoColisao(naves[j], astros):
-                naves[j] = atualizaNave(naves[j], astros, delta_t)
+                aux_T.append(p)
+                aux_D.append(mn_d)
 
-            p = naves[j][0]
-            mn_d = distanciaAstroMaisProximo(naves[j], astros)
-            T[j][i] = p
-            D[j][i] = mn_d
+            # print('*** Nave {} ***'.format(j + 1))
+            # print('Posição: ({:.3f},{:.3f})'.format(p[0], p[1]))
+            # print('Distância ao astro mais próximo: {:.3f}'.format(mn_d))
 
-            print('*** Nave {} ***'.format(j + 1))
-            print('Posição: ({:.3f},{:.3f})'.format(p[0], p[1]))
-            print('Distância ao astro mais próximo: {:.3f}'.format(mn_d))
+        T.append(aux_T)
+        D.append(aux_D)
 
     # eprint(f'T: {T}', end='\n')
     # eprint(f'D: {D}', end='\n')
